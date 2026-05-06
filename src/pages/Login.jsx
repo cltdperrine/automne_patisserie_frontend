@@ -71,13 +71,6 @@ export default function Login() {
         >
           Se connecter
         </button>
-
-        <button
-          type="button"
-          className="w-full h-[55px] rounded-[5px] bg-[#b58275] text-white text-base font-medium hover:opacity-90 transition-opacity cursor-pointer"
-        >
-          Reset
-        </button>
       </form>
     </div>
   );
