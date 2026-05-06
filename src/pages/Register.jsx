@@ -18,7 +18,12 @@ export default function Register() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(name);
+
+    if (formData.confirmPassword === formData.password) {
+      console.log("Well done!");
+    } else {
+      console.log("Try again");
+    }
   }
 
   return (

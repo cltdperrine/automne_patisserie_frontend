@@ -1,26 +1,29 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+
+    error: null,
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    if (name === "email") {
-      setFormData({
-        email: value,
-        password: formData.password,
-      });
-    }
+    setFormData((state) => ({ ...state, [name]: value }));
+  }
 
-    if (name === "password") {
-      setFormData({
-        password: value,
-        email: formData.email,
-      });
+  async function handleSubmit() {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/sign-in",
+        formData,
+      );
+      console.log(response.data);
+    } catch {
+      setFormData((state) => ({ ...state, error: "Invalid credentials" }));
     }
   }
 
@@ -34,6 +37,7 @@ export default function Login() {
           Créer un compte
         </span>
       </div>
+      <div>{formData.error}</div>
       {/* Input adresse email */}
       <form className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -66,6 +70,7 @@ export default function Login() {
         </div>
         {/* button pour se connecter */}
         <button
+          onClick={handleSubmit}
           type="button"
           className="w-full h-[55px] rounded-[5px] bg-[#b58275] text-white text-base font-medium hover:opacity-90 transition-opacity cursor-pointer"
         >
