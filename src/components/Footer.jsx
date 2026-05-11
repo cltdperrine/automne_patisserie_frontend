@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-[#FFFFFF] px-8 py-16">
+    <footer className="border-t border-gray-200 bg-[#FFFFFF] px-6 py-12 md:px-8 md:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Logo */}
-          <div className="flex items-center md:items-start">
+          <div className="flex justify-center md:justify-start">
             <img
               src="/automne-logo.png"
               alt="Automne Pâtisserie"
@@ -15,8 +15,8 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div>
-            <h3 className="mb-8 text-sm font-medium text-[#9F9F9F]">Liens</h3>
+          <div className="text-center md:text-left">
+            <h3 className="mb-8 text-sm font-medium text-[#9F9F9F] ">Liens</h3>
             <ul className="space-y-6 text-sm font-medium">
               <li>
                 <Link to="/" className="transition hover:text-gray-500">
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
 
           {/* Help */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="mb-8 text-sm font-medium text-[#9F9F9F]">Aide</h3>
 
             <ul className="space-y-6 text-sm font-medium">
@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="mb-8 text-sm font-medium text-[#9F9F9F]">
               Newsletter
             </h3>
