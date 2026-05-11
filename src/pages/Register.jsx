@@ -20,9 +20,9 @@ export default function Register() {
     event.preventDefault();
 
     if (formData.confirmPassword === formData.password) {
-      console.log("Well done!");
+      console.log("Compte crée");
     } else {
-      console.log("Try again");
+      console.error("Les mots de passe ne correspondent pas");
     }
   }
 
@@ -37,7 +37,10 @@ export default function Register() {
         </span>
       </div>
       {/* Input adresse email */}
-      <form className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4"
+      >
         <div className="flex flex-col gap-2">
           <label className="text-base font-medium text-black">
             Votre e-mail*
@@ -70,17 +73,18 @@ export default function Register() {
           <label className="text-base font-medium text-black">
             Confirmation du mot de passe*
           </label>
+
+          <input
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            type="password"
+            onChange={handleChange}
+            className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
+          />
         </div>
-        <input
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          type="password"
-          onChange={handleChange}
-          className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
-        />
         {/* button pour s'inscrire' */}
         <button
-          onClick={handleSubmit}
+          type="submit"
           className="w-full h-[55px] rounded-[5px] bg-[#b58275] text-white text-base font-medium hover:opacity-90 transition-opacity cursor-pointer"
         >
           Créer un compte

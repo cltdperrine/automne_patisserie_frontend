@@ -23,7 +23,10 @@ export default function Login() {
       );
       console.log(response.data);
     } catch {
-      setFormData((state) => ({ ...state, error: "Invalid credentials" }));
+      setFormData((state) => ({
+        ...state,
+        error: "E-mail ou mot de passe incorrects",
+      }));
     }
   }
 
