@@ -11,9 +11,21 @@ export default function FeaturesBanner() {
             title="Fait maison"
             subtitle="Recettes artisanales"
           />
-          <FeaturesItem />
-          <FeaturesItem />
-          <FeaturesItem />
+          <FeaturesItem
+            icon={<Clock3 className="h-10 w-10 stroke-[1.5]" />}
+            title="Fraîcheur garantie"
+            subtitle="Préparé à la commande"
+          />
+          <FeaturesItem
+            icon={<Leaf className="h-10 w-10 stroke-[1.5]" />}
+            title="Produits de saison"
+            subtitle="Inspirés du moment"
+          />
+          <FeaturesItem
+            icon={<Check className="h-10 w-10 stroke-[1.5]" />}
+            title="Qualité sélectionnée"
+            subtitle="Ingrédients choisis pour vous"
+          />
         </div>
       </section>
     </>
