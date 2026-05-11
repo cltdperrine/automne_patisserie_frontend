@@ -18,7 +18,8 @@ export default function Login() {
     setFormData((state) => ({ ...state, [name]: value }));
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/sign-in",
@@ -26,7 +27,10 @@ export default function Login() {
       );
       console.log(response.data);
     } catch {
-      setFormData((state) => ({ ...state, error: "Invalid credentials" }));
+      setFormData((state) => ({
+        ...state,
+        error: "Email ou mot de passe incorrects",
+      }));
     }
   }
 
