@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Footer from "../components/Footer";
 
 export default function Register() {
@@ -20,6 +20,7 @@ export default function Register() {
       ...prev,
       [name]: value,
     }));
+    setError("");
   }
 
   async function handleSubmit(event) {
@@ -29,14 +30,31 @@ export default function Register() {
       setError("Les mots de passe ne correspondent pas");
       return;
     }
+    setError("");
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/register",
-        formData,
+        {
+          email: formData.email,
+          password: formData.password,
+        },
       );
       console.log(response.data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        const raw = err.response?.data;
+        const msg =
+          raw &&
+          typeof raw === "object" &&
+          "message" in raw &&
+          typeof raw.message === "string"
+            ? raw.message
+            : err.message;
+        setError(msg);
+      } else {
+        setError("Une erreur est survenue");
+      }
+    }
   }
 
   return (
@@ -101,6 +119,11 @@ export default function Register() {
               className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
             />
           </div>
+          {error ? (
+            <p className="text-red-500 text-sm" role="alert">
+              {error}
+            </p>
+          ) : null}
           {/* button pour s'inscrire' */}
           <button
             type="submit"
