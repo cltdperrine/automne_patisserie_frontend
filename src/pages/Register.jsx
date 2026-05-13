@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import axios, { isAxiosError } from "axios";
-import Footer from "../components/Footer";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -59,8 +57,6 @@ export default function Register() {
 
   return (
     <>
-      <Header />
-
       <div className="min-h-screen bg-white flex flex-col items-center px-4 py-16">
         <div className="flex gap-6 mb-12">
           <Link
@@ -133,7 +129,6 @@ export default function Register() {
           </button>
         </form>
       </div>
-      <Footer />
     </>
   );
 }
