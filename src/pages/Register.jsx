@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,6 @@ export default function Register() {
       console.log(response.data);
     } catch (error) {
       console.log(error);
-    }
   }
 
   return (
@@ -56,7 +56,10 @@ export default function Register() {
           </span>
         </div>
         {/* Input adresse email */}
-        <div className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4"
+        >
           <div className="flex flex-col gap-2">
             <label className="text-base font-medium text-black">
               Votre e-mail*
@@ -98,17 +101,16 @@ export default function Register() {
               className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
             />
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
           {/* button pour s'inscrire' */}
           <button
-            onClick={handleSubmit}
-            type="button"
+            type="submit"
             className="w-full h-[55px] rounded-[5px] bg-[#b58275] text-white text-base font-medium hover:opacity-90 transition-opacity cursor-pointer"
           >
             Créer un compte
           </button>
-        </div>
+        </form>
       </div>
+      <Footer />
     </>
   );
 }

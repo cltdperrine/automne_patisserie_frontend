@@ -1,6 +1,8 @@
 import { useState, Link } from "react";
 import axios from "axios";
-import Header from "./components/Header";
+import Header from "../components/Header";
+import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -18,16 +20,19 @@ export default function Login() {
     setError("");
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/sign-in",
         formData,
       );
       console.log(response.data);
-    } catch (error) {
-      console.log(error);
-      setError("Email ou mot de passe incorrects");
+    } catch {
+      setFormData((state) => ({
+        ...state,
+        error: "Email ou mot de passe incorrects",
+      }));
     }
   }
 
@@ -89,6 +94,7 @@ export default function Login() {
           </button>
         </form>
       </div>
+      <Footer />
     </>
   );
 }
