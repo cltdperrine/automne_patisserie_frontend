@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Footer from "../components/Footer";
 
 export default function Register() {
@@ -9,6 +10,8 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   });
+
+  const [error, setError] = useState("");
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -19,14 +22,21 @@ export default function Register() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    if (formData.confirmPassword === formData.password) {
-      console.log("Compte crée");
-    } else {
-      console.error("Les mots de passe ne correspondent pas");
+    if (formData.password !== formData.confirmPassword) {
+      setError("Les mots de passe ne correspondent pas");
+      return;
     }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        formData,
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
   }
 
   return (

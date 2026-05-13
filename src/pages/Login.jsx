@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Link } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
@@ -8,14 +8,16 @@ export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-
-    error: null,
   });
+
+  const [error, setError] = useState("");
 
   function handleChange(event) {
     const { name, value } = event.target;
 
     setFormData((state) => ({ ...state, [name]: value }));
+
+    setError("");
   }
 
   async function handleSubmit(event) {
@@ -37,7 +39,6 @@ export default function Login() {
   return (
     <>
       <Header />
-
       <div className="min-h-screen bg-white flex flex-col items-center px-4 py-16">
         <div className="flex gap-6 mb-12">
           <span className="text-2xl font-semibold text-[#9f9f9f]">
@@ -82,6 +83,7 @@ export default function Login() {
               className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
             />
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           {/* button pour se connecter */}
           <button
             onClick={handleSubmit}
@@ -92,7 +94,6 @@ export default function Login() {
           </button>
         </form>
       </div>
-
       <Footer />
     </>
   );
