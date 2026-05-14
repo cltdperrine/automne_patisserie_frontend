@@ -66,7 +66,7 @@ export default function Header() {
         {/* icons */}
         <div className="flex flex-1 items-center justify-end gap-4 md:gap-6">
           {/* user */}
-          <Link to={"/login"}>
+          <Link to={"/auth/login"}>
             <User className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
           </Link>
           {/* search */}
