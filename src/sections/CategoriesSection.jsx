@@ -1,6 +1,23 @@
 import CategoryCard from "../components/CategoryCard";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function CategoriesSection() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/categories",
+        );
+        setCategories(response.data);
+      } catch {
+        console.error("Impossible d'afficher les catégories");
+      }
+    }
+    getCategories();
+  }, []);
   return (
     <>
       <section className="bg-white px-6 py-12 md:px-12 md:py-16">
@@ -15,10 +32,15 @@ export default function CategoriesSection() {
           </div>
 
           {/* Grid */}
-          <div className="grid gap-8 md:grid-cols-3">
-            <CategoryCard image="" title="" />
-            <CategoryCard />
-            <CategoryCard />
+          <div className="grid gap-8 md:grid-cols-4">
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.id}
+                id={category.id}
+                name={category.name}
+                image={category.image}
+              />
+            ))}
           </div>
         </div>
       </section>
