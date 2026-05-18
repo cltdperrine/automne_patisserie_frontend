@@ -26,6 +26,7 @@ export default function Category() {
   useEffect(() => {
     async function getCategoryProducts() {
       try {
+        // TODO: use get all products endpoint with a category filter ( query param )
         const response = await axios.get(
           `http://localhost:5000/api/categories/${id}/products`,
         );

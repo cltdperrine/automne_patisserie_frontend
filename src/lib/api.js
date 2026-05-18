@@ -4,4 +4,44 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL + "/api",
 });
 
+export const productsApi = {
+  // TODO: add a category filter to the get all products endpoint
+  getProducts: async () => {
+    const response = await api.get("/products");
+    return response.data;
+  },
+  getProduct: async (id) => {
+    const response = await api.get(`/products/${id}`);
+    return response.data;
+  },
+  getBestSellers: async (limit = 4) => {
+    const response = await api.get("/products/best-sellers", {
+      params: { limit },
+    });
+    return response.data;
+  },
+};
+
+export const ordersApi = {};
+
+export const cartApi = {};
+
+export const categoriesApi = {
+  getCategories: async () => {
+    const response = await api.get("/categories");
+    return response.data;
+  },
+};
+
+export const authApi = {
+  register: async (data) => {
+    const response = await api.post("/auth/register", data);
+    return response.data;
+  },
+  signIn: async (data) => {
+    const response = await api.post("/auth/sign-in", data);
+    return response.data;
+  },
+};
+
 export default api;

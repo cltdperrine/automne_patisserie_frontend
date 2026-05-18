@@ -1,29 +1,22 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import ProductCard from "../components/ProductCard";
-
-function formatPrice(price) {
-  const value = typeof price === "string" ? parseFloat(price) : price;
-  if (Number.isNaN(value)) return "";
-  return `${value.toFixed(2).replace(".", ",")}€`;
-}
+import { productsApi } from "../lib/api";
+import formatPrice from "../utils/prices";
 
 export default function BestSellersSection() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    async function getProducts() {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/products/best-sellers",
-        );
-        setProducts(response.data);
-      } catch {
-        console.error("Impossible d'afficher les produits");
-      }
-    }
-    getProducts();
+    productsApi
+      .getBestSellers(4)
+      .then((products) => {
+        setProducts(products);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
+
   return (
     <>
       <section className="bg-white px-6 py-12 md:px-12 md:py-16">
