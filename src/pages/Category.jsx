@@ -47,19 +47,19 @@ export default function Category() {
       <section className="relative">
         <img
           src="/hero.jpg"
-          alt="Produits"
+          alt="Catégories"
           className="h-[280px] w-full object-cover md:h-[340px]"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
-            Produits
+          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
+            Catégories
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
+          <div className="mt-3 flex items-center gap-2 text-sm text-[#FFFFFF] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
               Accueil
             </Link>
-            <span className="text-[#6B240F]">&gt;</span>
-            <span>Produits</span>
+            <span className="text-[#FFFFFF]">&gt;</span>
+            <span>Catégories</span>
           </div>
         </div>
       </section>
