@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { productsApi } from "../lib/api";
 import FeaturesBanner from "../sections/FeaturesBanner";
 import {
   SlidersHorizontal,
@@ -27,11 +27,8 @@ export default function Category() {
     async function getCategoryProducts() {
       try {
         // TODO: use get all products endpoint with a category filter ( query param )
-        const response = await axios.get(
-          `http://localhost:5000/api/categories/${id}/products`,
-        );
-        console.log(response.data);
-        setProducts(response.data);
+        const data = await productsApi.getProducts(id);
+        setProducts(data);
       } catch {
         setError("Impossible d'afficher les produits");
       } finally {

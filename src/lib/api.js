@@ -5,9 +5,11 @@ const api = axios.create({
 });
 
 export const productsApi = {
-  // TODO: add a category filter to the get all products endpoint
-  getProducts: async () => {
-    const response = await api.get("/products");
+  // DONE: add a category filter to the get all products endpoint
+  getProducts: async (categoryId) => {
+    const response = await api.get("/products", {
+      params: { categoryId },
+    });
     return response.data;
   },
   getProduct: async (id) => {

@@ -24,8 +24,8 @@ export default function Products() {
   useEffect(() => {
     async function getProducts() {
       try {
-        const response = await productsApi.getProducts();
-        setProducts(response.data);
+        const data = await productsApi.getProducts();
+        setProducts(data);
       } catch {
         setError("Impossible d'afficher les produits");
       } finally {
