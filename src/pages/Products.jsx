@@ -9,12 +9,7 @@ import {
 import FeaturesBanner from "../sections/FeaturesBanner";
 import ProductCard from "../components/ProductCard";
 import { productsApi } from "../lib/api";
-
-function formatPrice(price) {
-  const value = typeof price === "string" ? parseFloat(price) : price;
-  if (Number.isNaN(value)) return "";
-  return `${value.toFixed(2).replace(".", ",")}€`;
-}
+import formatPrice from "../utils/prices";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
