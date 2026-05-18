@@ -1,6 +1,6 @@
 import CategoryCard from "../components/CategoryCard";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { categoriesApi } from "../lib/api";
 
 export default function CategoriesSection() {
   const [categories, setCategories] = useState([]);
@@ -8,12 +8,10 @@ export default function CategoriesSection() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/categories",
-        );
-        setCategories(response.data);
-      } catch {
-        console.error("Impossible d'afficher les catégories");
+        const categories = await categoriesApi.getCategories();
+        setCategories(categories);
+      } catch (error) {
+        console.error(error);
       }
     }
     getCategories();

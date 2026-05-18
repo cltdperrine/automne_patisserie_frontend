@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios, { isAxiosError } from "axios";
+import { authApi } from "../lib/api";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -30,28 +30,13 @@ export default function Register() {
     }
     setError("");
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-      );
-      console.log(response.data);
-    } catch (err) {
-      if (isAxiosError(err)) {
-        const raw = err.response?.data;
-        const msg =
-          raw &&
-          typeof raw === "object" &&
-          "message" in raw &&
-          typeof raw.message === "string"
-            ? raw.message
-            : err.message;
-        setError(msg);
-      } else {
-        setError("Une erreur est survenue");
-      }
+      const response = await authApi.register({
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
     }
   }
 

@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import FeaturesBanner from "../sections/FeaturesBanner";
 import ProductCard from "../components/ProductCard";
-import axios from "axios";
+import { productsApi } from "../lib/api";
 
 function formatPrice(price) {
   const value = typeof price === "string" ? parseFloat(price) : price;
@@ -24,7 +24,7 @@ export default function Products() {
   useEffect(() => {
     async function getProducts() {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await productsApi.getProducts();
         setProducts(response.data);
       } catch {
         setError("Impossible d'afficher les produits");

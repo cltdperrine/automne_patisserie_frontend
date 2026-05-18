@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { authApi } from "../lib/api";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -20,10 +21,7 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/sign-in",
-        formData,
-      );
+      const response = await authApi.signIn(formData);
       console.log(response.data);
     } catch {
       setError("Email ou mot de passe incorrects");
