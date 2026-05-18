@@ -38,7 +38,6 @@ export default function Category() {
     getCategoryProducts();
   }, [id]);
 
-  console.log(id);
   return (
     <>
       {/* Banner */}

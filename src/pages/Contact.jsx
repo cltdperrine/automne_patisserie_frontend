@@ -20,8 +20,6 @@ export default function Contact() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(formData);
-
     alert("Message envoyé!");
   }
 

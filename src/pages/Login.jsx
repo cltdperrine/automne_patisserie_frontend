@@ -22,7 +22,6 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await authApi.signIn(formData);
-      console.log(response.data);
     } catch {
       setError("Email ou mot de passe incorrects");
     }

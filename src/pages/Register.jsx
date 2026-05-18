@@ -34,7 +34,6 @@ export default function Register() {
         email: formData.email,
         password: formData.password,
       });
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
