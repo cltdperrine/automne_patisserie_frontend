@@ -89,9 +89,7 @@ export default function Footer() {
         {/* Bottom */}
 
         <div className="mt-16 border-t border-gray-200 pt-8">
-          <p className="text-xs text-gray-500">
-            &copy; 2026 | Made with love by Perrine
-          </p>
+          <p className="text-xs text-gray-500">&copy; 2026 | Made by Perrine</p>
         </div>
       </div>
     </footer>
