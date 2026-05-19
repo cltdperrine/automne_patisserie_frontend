@@ -84,7 +84,7 @@ export default function Cart() {
                 </div>
               </div>
               <button className="mt-8 w-full rounded-full border border-black px-6 py-4 text-base font-medium transition hover:bg-black hover:text-white cursor-pointer">
-                Valider la commande
+                <Link to="/checkout">Valider la commande</Link>
               </button>
             </div>
           </div>
