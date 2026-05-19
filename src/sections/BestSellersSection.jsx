@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { productsApi } from "../lib/api";
 import formatPrice from "../utils/prices";
+import { Link } from "react-router-dom";
 
 export default function BestSellersSection() {
   const [products, setProducts] = useState([]);
@@ -38,6 +39,15 @@ export default function BestSellersSection() {
                 price={formatPrice(product.price)}
               />
             ))}
+          </div>
+          {/* Button */}
+          <div className="mt-12 flex justify-center">
+            <Link
+              to="/products"
+              className="border border-[#B88E7D] px-12 py-3 text-[#B88E7D] transition hover:bg-[#B88E7D] hover:text-white"
+            >
+              Afficher plus
+            </Link>
           </div>
         </div>
       </section>

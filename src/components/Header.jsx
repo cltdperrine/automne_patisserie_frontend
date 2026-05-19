@@ -1,4 +1,4 @@
-import { Menu, User, Search, ShoppingCart } from "lucide-react";
+import { Menu, User, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -31,14 +31,7 @@ export default function Header() {
                   Produits
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/"
-                  className="cursor-pointer transition hover:text-gray-500"
-                >
-                  Où me trouver?
-                </Link>
-              </li>
+
               <li>
                 <Link
                   to="/contact"
@@ -69,10 +62,7 @@ export default function Header() {
           <Link to={"/auth/login"}>
             <User className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
           </Link>
-          {/* search */}
-          <Link to={"/search"}>
-            <Search className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
-          </Link>
+
           {/* shopping cart */}
           <Link to={"/cart"}>
             <ShoppingCart className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
