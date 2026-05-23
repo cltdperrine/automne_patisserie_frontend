@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 export default function ProductCard({ image, title, subtitle, price }) {
+  const { addToCart } = useContext(CartContext);
+  console.log(price, typeof price);
   return (
     <div className="group flex flex-col">
       {/* Image with hover overlay */}
@@ -7,7 +12,10 @@ export default function ProductCard({ image, title, subtitle, price }) {
 
         {/* Hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <button className="cursor-pointer bg-white px-6 py-3 text-xs font-semibold tracking-wide text-[#6B240F] transition hover:bg-[#F8F3F1] md:text-sm">
+          <button
+            onClick={() => addToCart({ image, title, subtitle, price })}
+            className="cursor-pointer bg-white px-6 py-3 text-xs font-semibold tracking-wide text-[#6B240F] transition hover:bg-[#F8F3F1] md:text-sm"
+          >
             Ajouter au panier
           </button>
         </div>

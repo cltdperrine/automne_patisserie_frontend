@@ -1,8 +1,19 @@
 import FeaturesBanner from "../sections/FeaturesBanner";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Cart() {
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  const total = cartItems.reduce((acc, item) => {
+    const numericPrice = parseFloat(
+      item.price.replace("€", "").replace(",", "."),
+    );
+
+    return acc + numericPrice * item.quantity;
+  }, 0);
   return (
     <>
       <section className="relative">
@@ -38,31 +49,39 @@ export default function Cart() {
                   <span>Sous-total</span>
                 </div>
               </div>
-              <div className="grid grid-cols-4 items-center gap-4 border-b border-gray-100 px-6 py-6">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="/hero.jpg"
-                    alt="Produit"
-                    className="h-20 w-20 rounded-lg object-cover"
-                  />
+              {cartItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-4 items-center gap-4 border-b border-gray-100 px-6 py-6"
+                >
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-20 w-20 rounded-lg object-cover"
+                    />
 
-                  <p className="text-sm text-[#2B2B2B]">Coeur d’Automne</p>
+                    <p className="text-sm text-[#2B2B2B]">{item.title}</p>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span>{item.price}</span>
+
+                    <button
+                      onClick={() => removeFromCart(index)}
+                      className="cursor-pointer text-[#B88E7D] transition hover:opacity-70"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <div className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 text-sm">
+                    {item.quantity}
+                  </div>
+
+                  <span>{item.price}</span>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <span>3.50 €</span>
-
-                  <button className="cursor-pointer text-[#B88E7D] transition hover:opacity-70">
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <div className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 text-sm">
-                  1
-                </div>
-
-                <span>3.50 €</span>
-              </div>
+              ))}
             </div>
 
             {/* Right */}
@@ -72,14 +91,14 @@ export default function Cart() {
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-[#2B2B2B]">Sous-total</span>
 
-                  <span className="text-[#9F9F9F]">3.50 €</span>
+                  <span className="text-[#9F9F9F]">{total.toFixed(2)} €</span>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-[#2B2B2B]">Total</span>
 
                   <span className="text-xl font-bold text-[#B88E7D]">
-                    3.50 €
+                    {total.toFixed(2)} €
                   </span>
                 </div>
               </div>
