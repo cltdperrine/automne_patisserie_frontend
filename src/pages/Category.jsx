@@ -110,6 +110,7 @@ export default function Category() {
               {products.map((product) => (
                 <ProductCard
                   key={product.id}
+                  id={product.id}
                   image={product.image_url}
                   title={product.name}
                   subtitle={product.description}

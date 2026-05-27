@@ -32,6 +32,7 @@ export default function BestSellersSection() {
             {products.map((product) => (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 image={product.image_url}
                 title={product.name}
                 subtitle={product.description}
