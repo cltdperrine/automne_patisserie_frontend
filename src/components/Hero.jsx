@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Hero() {
   return (
     <>
@@ -38,9 +40,12 @@ export default function Hero() {
             pause douce et ensoleillée.
           </p>
 
-          <button className="cursor-pointer bg-[#6B240F] px-8 py-4 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-[#541b0b] md:px-12 md:py-5 md:text-sm">
+          <Link
+            to="/products/53ada1a3-30f0-46bc-a044-32ec4e7a95e6"
+            className="mt-8 inline-block bg-[#5C1F0F] px-8 py-4 text-white transition hover:opacity-90"
+          >
             Commander
-          </button>
+          </Link>
         </div>
       </section>
     </>
