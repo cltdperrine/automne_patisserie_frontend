@@ -6,7 +6,6 @@ const api = axios.create({
 });
 
 export const productsApi = {
-  // DONE: add a category filter to the get all products endpoint
   getProducts: async (categoryId) => {
     const response = await api.get("/products", {
       params: { categoryId },
@@ -21,6 +20,18 @@ export const productsApi = {
     const response = await api.get("/products/best-sellers", {
       params: { limit },
     });
+    return response.data;
+  },
+  createProduct: async (productData) => {
+    const response = await api.post("/products", productData);
+    return response.data;
+  },
+  updateProduct: async (id, productData) => {
+    const response = await api.patch(`products/${id}`, productData);
+    return response.data;
+  },
+  deleteProduct: async (id) => {
+    const response = await api.delete(`products/${id}`);
     return response.data;
   },
 };

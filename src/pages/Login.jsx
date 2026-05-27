@@ -35,7 +35,7 @@ export default function Login() {
             Se connecter
           </span>
           <Link
-            to="/register"
+            to="/auth/register"
             className="text-2xl font-semibold text-black cursor-pointer"
           >
             Créer un compte

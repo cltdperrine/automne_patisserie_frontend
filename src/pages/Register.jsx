@@ -44,7 +44,7 @@ export default function Register() {
       <div className="min-h-screen bg-white flex flex-col items-center px-4 py-16">
         <div className="flex gap-6 mb-12">
           <Link
-            to="/login"
+            to="/auth/login"
             className="text-2xl font-semibold text-left text-black cursor-pointer"
           >
             Se connecter
