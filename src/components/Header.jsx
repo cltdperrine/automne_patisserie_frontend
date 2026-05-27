@@ -1,9 +1,18 @@
-import { Menu, User, Search, ShoppingCart } from "lucide-react";
+import { Menu, User, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Header() {
+  const { cartItems } = useContext(CartContext);
+
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
+
   return (
-    <header className="w-full border-b border-gray-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md">
       <div className="flex h-20 items-center px-4 md:px-8">
         {/* left */}
         <div className="flex items-center">
@@ -33,7 +42,7 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  to="/where-to-find"
                   className="cursor-pointer transition hover:text-gray-500"
                 >
                   Où me trouver?
@@ -69,13 +78,16 @@ export default function Header() {
           <Link to={"/auth/login"}>
             <User className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
           </Link>
-          {/* search */}
-          <Link to={"/search"}>
-            <Search className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
-          </Link>
+
           {/* shopping cart */}
-          <Link to={"/cart"}>
-            <ShoppingCart className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
+          <Link to="/cart" className="relative">
+            <ShoppingCart className="h-6 w-6" />
+
+            {totalItems > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#B88E7D] text-xs text-white">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
       </div>

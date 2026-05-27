@@ -13,7 +13,7 @@ export default function CategoryCard({ id, name, image }) {
             to={`/categories/${id}`}
             className="cursor-pointer bg-white px-6 py-3 text-xs font-semibold tracking-wide text-[#6B240F] transition hover:bg-[#F8F3F1] md:text-sm"
           >
-            Commander
+            Voir
           </Link>
         </div>
       </div>
