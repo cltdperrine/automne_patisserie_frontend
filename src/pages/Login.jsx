@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { authApi } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Header from "../components/Header";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -10,23 +11,19 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
-
     setFormData((state) => ({ ...state, [name]: value }));
-
     setError("");
   }
-
-  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
       await authApi.signIn(formData);
       toast.success("Connexion réussie !");
-
       navigate("/");
     } catch {
       toast.error("Email ou mot de passe incorrect");
