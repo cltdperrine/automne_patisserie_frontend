@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { authApi } from "../lib/api";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -10,6 +12,8 @@ export default function Register() {
   });
 
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -30,12 +34,14 @@ export default function Register() {
     }
     setError("");
     try {
-      const response = await authApi.register({
+      await authApi.register({
         email: formData.email,
         password: formData.password,
       });
-    } catch (error) {
-      console.error(error);
+      toast.success("Compte créé avec succès !");
+      navigate("/auth/login");
+    } catch {
+      toast.error("Une erreur est survenue");
     }
   }
 

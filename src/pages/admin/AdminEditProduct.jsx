@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { productsApi } from "../../lib/api";
+import toast from "react-hot-toast";
 
 export default function AdminEditProduct() {
   const [formData, setFormData] = useState({
@@ -22,9 +23,8 @@ export default function AdminEditProduct() {
 
     try {
       await productsApi.updateProduct(id, formData);
-      alert("Produit modifié!");
+      toast.success("Produit modifié avec succès");
       navigate("/admin/products");
-      console.log("Produit modifié");
     } catch (error) {
       console.log(error);
     }

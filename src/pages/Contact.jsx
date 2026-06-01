@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import FeaturesBanner from "../sections/FeaturesBanner";
+import toast from "react-hot-toast";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -20,27 +21,33 @@ export default function Contact() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    alert("Message envoyé!");
+    toast.success("Message envoyé avec succès!");
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
   }
 
   return (
     <>
-      {/* Banner */}
       <section className="relative">
         <img
-          src="/hero.jpg"
+          src="/hero-2.jpeg"
           alt="Contact"
           className="h-[280px] w-full object-cover md:h-[340px]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
+        <div className="absolute inset-0 flex bg-white/20 backdrop-blur-[2px] flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
             Contact
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#FFFFFF] md:text-base">
+          <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
               Accueil
             </Link>
-            <span className="text-[#FFFFFF]">&gt;</span>
+            <span className="text-[#2B2B2B]">&gt;</span>
             <span>Contact</span>
           </div>
         </div>
@@ -107,6 +114,7 @@ export default function Contact() {
 
                 <input
                   name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   type="text"
                   placeholder="Abc"
@@ -122,6 +130,7 @@ export default function Contact() {
 
                 <input
                   name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   type="email"
                   placeholder="abc@exemple.com"
@@ -137,6 +146,7 @@ export default function Contact() {
 
                 <input
                   name="subject"
+                  value={formData.subject}
                   onChange={handleChange}
                   type="text"
                   placeholder="Ceci est optionnel"
@@ -152,6 +162,7 @@ export default function Contact() {
 
                 <textarea
                   name="message"
+                  value={formData.message}
                   onChange={handleChange}
                   className="min-h-[180px] w-full rounded-[10px] border border-[#9f9f9f] px-4 py-3 text-base outline-none transition-colors focus:border-[#b58275]"
                 />

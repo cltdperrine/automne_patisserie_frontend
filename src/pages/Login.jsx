@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { authApi } from "../lib/api";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -18,12 +19,17 @@ export default function Login() {
     setError("");
   }
 
+  const navigate = useNavigate();
+
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await authApi.signIn(formData);
+      await authApi.signIn(formData);
+      toast.success("Connexion réussie !");
+
+      navigate("/");
     } catch {
-      setError("Email ou mot de passe incorrects");
+      toast.error("Email ou mot de passe incorrect");
     }
   }
 

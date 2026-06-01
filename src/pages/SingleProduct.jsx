@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { productsApi } from "../lib/api";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import toast from "react-hot-toast";
 
 export default function SingleProduct() {
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
+
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     productsApi
@@ -24,8 +27,6 @@ export default function SingleProduct() {
   if (!product) {
     return <p>Chargement...</p>;
   }
-
-  const { addToCart } = useContext(CartContext);
 
   return (
     <>
@@ -80,13 +81,14 @@ export default function SingleProduct() {
             <button
               onClick={() => {
                 addToCart({
+                  id: product.id,
                   image: product.image_url,
                   title: product.name,
                   subtitle: product.description,
                   price: formatPrice(product.price),
                 });
 
-                alert("Article ajouté au panier");
+                toast.success("Article ajouté au panier");
               }}
               className="mt-10 rounded-xl border border-[#b58275] px-10 py-4 transition hover:bg-[#b58275] hover:text-white cursor-pointer"
             >

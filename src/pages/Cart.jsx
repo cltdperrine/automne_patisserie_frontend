@@ -5,7 +5,8 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 export default function Cart() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
+    useContext(CartContext);
 
   const total = cartItems.reduce((acc, item) => {
     const numericPrice = parseFloat(
@@ -14,23 +15,26 @@ export default function Cart() {
 
     return acc + numericPrice * item.quantity;
   }, 0);
+
+  const getNumericPrice = (price) =>
+    parseFloat(price.replace("€", "").replace(",", "."));
   return (
     <>
       <section className="relative">
         <img
-          src="/hero.jpg"
+          src="/hero-2.jpeg"
           alt="Panier"
           className="h-[280px] w-full object-cover md:h-[340px]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
+        <div className="absolute inset-0 flex bg-white/20 backdrop-blur-[2px] flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
             Panier
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#FFFFFF] md:text-base">
+          <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
               Accueil
             </Link>
-            <span className="text-[#FFFFFF]">&gt;</span>
+            <span className="text-[#2B2B2B]">&gt;</span>
             <span>Panier</span>
           </div>
         </div>
@@ -42,7 +46,7 @@ export default function Cart() {
             {/* Left */}
             <div className="lg:col-span-2">
               <div className="w-full">
-                <div className="grid grid-cols-4 bg-[#F8F3F1] px-6 py-4 text-sm font-medium text-[#2B2B2B]">
+                <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] bg-[#F8F3F1] px-6 py-4 text-sm font-medium text-[#2B2B2B]">
                   <span>Produit</span>
                   <span>Prix</span>
                   <span>Quantité</span>
@@ -52,16 +56,23 @@ export default function Cart() {
               {cartItems.map((item, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-4 items-center gap-4 border-b border-gray-100 px-6 py-6"
+                  className="grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center gap-6 border-b border-gray-100 px-6 py-6"
                 >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="h-20 w-20 rounded-lg object-cover"
-                    />
-
-                    <p className="text-sm text-[#2B2B2B]">{item.title}</p>
+                  <div className="flex items-center gap-6">
+                    <div className="h-24 w-24 overflow-hidden rounded-xl bg-[#F8F3F1] flex-shrink-0">
+                      <img
+                        src={
+                          item.image?.startsWith("http")
+                            ? item.image
+                            : `${import.meta.env.VITE_API_URL}${item.image}`
+                        }
+                        alt={item.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <p className="max-w-[180px] font-medium text-[#2B2B2B] leading-relaxed">
+                      {item.title}
+                    </p>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -75,36 +86,55 @@ export default function Cart() {
                     </button>
                   </div>
 
-                  <div className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 text-sm">
-                    {item.quantity}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => decreaseQuantity(index)}
+                      className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100 cursor-pointer"
+                    >
+                      -
+                    </button>
+
+                    <span className="min-w-[20px] text-center">
+                      {item.quantity}
+                    </span>
+
+                    <button
+                      onClick={() => increaseQuantity(index)}
+                      className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100 cursor-pointer"
+                    >
+                      +
+                    </button>
                   </div>
 
-                  <span>{item.price}</span>
+                  <span>
+                    {(getNumericPrice(item.price) * item.quantity).toFixed(2)} €
+                  </span>
                 </div>
               ))}
             </div>
 
             {/* Right */}
-            <div className="bg-[#F8F3F1] p-8">
-              <h2 className="mb-8 text-2xl font-bold text-[#2B2B2B]">Panier</h2>
+            <div className="bg-[#F8F3F1] p-8 self-start">
+              <h2 className="mb-8 text-2xl font-bold text-[#2B2B2B]">
+                Total de la commande
+              </h2>
               <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-[#2B2B2B]">Sous-total</span>
+                <div className="flex items-center justify-between border-t border-[#E5DDD8] pt-6">
+                  <span className="text-lg font-medium text-[#2B2B2B]">
+                    Total
+                  </span>
 
-                  <span className="text-[#9F9F9F]">{total.toFixed(2)} €</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-[#2B2B2B]">Total</span>
-
-                  <span className="text-xl font-bold text-[#B88E7D]">
+                  <span className="text-3xl font-bold text-[#B88E7D]">
                     {total.toFixed(2)} €
                   </span>
                 </div>
               </div>
-              <button className="mt-8 w-full rounded-full border border-black px-6 py-4 text-base font-medium transition hover:bg-black hover:text-white cursor-pointer">
+              <Link
+                to="/checkout"
+                className="mt-8 flex w-full items-center justify-center rounded-full bg-[#B88E7D] px-6 py-4 text-base font-medium text-white transition hover:opacity-90 cursor-pointer"
+              >
                 Valider la commande
-              </button>
+              </Link>
             </div>
           </div>
         </div>

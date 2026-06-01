@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { productsApi } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function AdminAddProduct() {
   const [formData, setFormData] = useState({
@@ -33,10 +34,8 @@ export default function AdminAddProduct() {
       data.append("image", formData.image);
 
       await productsApi.createProduct(data);
-      alert("Produit ajouté avec succès");
+      toast.success("Produit ajouté avec succès");
       navigate("/admin/products");
-
-      console.log("Le produit a bien été créé");
     } catch (error) {
       console.error(error);
     }

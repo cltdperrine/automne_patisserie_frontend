@@ -14,7 +14,6 @@ export default function Footer() {
             />
           </div>
 
-          {/* Links */}
           <div className="text-center md:text-left">
             <h3 className="mb-8 text-sm font-medium text-[#9F9F9F] ">Liens</h3>
             <ul className="space-y-6 text-sm font-medium">
@@ -24,44 +23,44 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/" className="transition hover:text-gray-500">
+                <Link to="/products" className="transition hover:text-gray-500">
                   Produits
                 </Link>
               </li>
               <li>
-                <Link to="/" className="transition hover:text-gray-500">
+                <Link
+                  to="/where-to-find"
+                  className="transition hover:text-gray-500"
+                >
                   Collecte
                 </Link>
               </li>
               <li>
-                <Link to="/" className="transition hover:text-gray-500">
+                <Link to="/contact" className="transition hover:text-gray-500">
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Help */}
           <div className="text-center md:text-left">
             <h3 className="mb-8 text-sm font-medium text-[#9F9F9F]">Aide</h3>
 
             <ul className="space-y-6 text-sm font-medium">
-              <li>
-                <Link to="/" className="transition hover:text-gray-500">
-                  Paiement
-                </Link>
+              <li className="cursor-not-allowed text-gray-400">Paiement</li>
+
+              <li className="cursor-not-allowed text-gray-400">
+                Commande & retrait
               </li>
-              <li>
-                <Link to="/" className="transition hover:text-gray-500">
-                  Commande & retrait
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="transition hover:text-gray-500">
-                  Produits & informations
-                </Link>
+
+              <li className="cursor-not-allowed text-gray-400">
+                Produits & informations
               </li>
             </ul>
+
+            <p className="mt-6 text-xs text-[#9F9F9F]">
+              Rubriques bientôt disponibles
+            </p>
           </div>
 
           {/* Newsletter */}
@@ -69,20 +68,25 @@ export default function Footer() {
             <h3 className="mb-8 text-sm font-medium text-[#9F9F9F]">
               Newsletter
             </h3>
-            <form className="flex flex-col gap-4 sm:flex-row sm:items-center text-sm">
+
+            <form className="flex flex-col gap-4 text-sm sm:flex-row sm:items-center">
               <input
                 type="email"
                 placeholder="Entrez votre e-mail"
-                className="border-b border-black bg-transparent pb-2 outline-none placeholder:text-gray-400"
+                disabled
+                className="cursor-not-allowed border-b border-black bg-transparent pb-2 opacity-50 outline-none placeholder:text-gray-400"
               />
 
               <button
-                type="submit"
-                className="border-b border-black pb-2 text-xs font-semibold uppercase tracking-wide cursor-pointer"
+                type="button"
+                disabled
+                className="cursor-not-allowed border-b border-black pb-2 text-xs font-semibold uppercase tracking-wide opacity-50"
               >
                 S'inscrire
               </button>
             </form>
+
+            <p className="mt-3 text-xs text-[#9F9F9F]">Bientôt disponible</p>
           </div>
         </div>
 

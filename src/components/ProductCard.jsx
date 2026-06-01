@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function ProductCard({ id, image, title, subtitle, price }) {
   const { addToCart } = useContext(CartContext);
@@ -10,8 +11,8 @@ export default function ProductCard({ id, image, title, subtitle, price }) {
 
   return (
     <div className="group flex flex-col">
+      {/* IMAGE */}
       <Link to={`/products/${id}`}>
-        {/* Image with hover overlay */}
         <div className="relative aspect-square w-full overflow-hidden">
           <img
             src={
@@ -22,42 +23,49 @@ export default function ProductCard({ id, image, title, subtitle, price }) {
                 : "/placeholder.jpg"
             }
             alt={title}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-
-                addToCart({
-                  image,
-                  title,
-                  subtitle,
-                  price,
-                });
-              }}
-              className="cursor-pointer bg-white px-6 py-3 text-xs font-semibold tracking-wide text-[#6B240F] transition hover:bg-[#F8F3F1] md:text-sm cursor pointer"
-            >
-              Ajouter au panier
-            </button>
-          </div>
-        </div>
-
-        {/* Card body */}
-        <div className="bg-[#F8F3F1] px-4 py-4">
-          <h3 className="text-base font-semibold text-[#2B2B2B] md:text-lg">
-            {title}
-          </h3>
-
-          <p className="mt-1 text-xs text-[#9F9F9F] md:text-sm">{subtitle}</p>
-
-          <p className="mt-3 text-sm font-bold text-[#2B2B2B] md:text-base">
-            {price}
-          </p>
+          <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
       </Link>
+
+      {/* CONTENT */}
+      <div className="pt-4">
+        <Link to={`/products/${id}`}>
+          <h3 className="text-base font-semibold text-[#2B2B2B] transition hover:text-[#B88E7D] md:text-lg">
+            {title}
+          </h3>
+        </Link>
+
+        <p className="mt-1 line-clamp-2 text-xs text-[#9F9F9F] md:text-sm">
+          {subtitle}
+        </p>
+
+        <div className="mt-4 flex items-center justify-between">
+          <p className="text-sm font-bold text-[#2B2B2B] md:text-base">
+            {price}
+          </p>
+
+          <button
+            onClick={() => {
+              addToCart({
+                id,
+                image,
+                title,
+                subtitle,
+                price,
+              });
+
+              toast.success("Article ajouté au panier");
+            }}
+            className="cursor-pointer rounded-full border border-[#B88E7D] px-4 py-2 text-sm font-medium text-[#B88E7D] transition hover:bg-[#B88E7D] hover:text-white"
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { productsApi } from "../../lib/api";
 import formatPrice from "../../utils/prices";
 import { Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -31,7 +32,7 @@ export default function AdminProducts() {
       await productsApi.deleteProduct(productId);
 
       setProducts(products.filter((product) => product.id !== productId));
-      alert("Produit supprimé avec succès");
+      toast.success("Produit supprimé avec succès");
     } catch (error) {
       console.error(error);
     }

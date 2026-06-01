@@ -32,29 +32,28 @@ export default function Products() {
 
   return (
     <>
-      {/* Banner */}
       <section className="relative">
         <img
-          src="/hero.jpg"
+          src="/hero-2.jpeg"
           alt="Produits"
           className="h-[280px] w-full object-cover md:h-[340px]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
+        <div className="absolute inset-0 flex bg-white/20 backdrop-blur-[2px] flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
             Produits
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#FFFFFF] md:text-base">
+          <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
               Accueil
             </Link>
-            <span className="text-[#FFFFFF]">&gt;</span>
+            <span className="text-[#2B2B2B]">&gt;</span>
             <span>Produits</span>
           </div>
         </div>
       </section>
 
       {/* Filter bar */}
-      <section className="bg-[#F1E0DA] px-6 py-4 md:px-12">
+      <section className="bg-[#F8F3F1] px-6 py-4 md:px-12">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="flex items-center gap-6">
             <button className="flex cursor-pointer items-center gap-2 text-sm font-medium text-[#2B2B2B] transition hover:text-gray-600">

@@ -6,19 +6,19 @@ export default function WhereToFind() {
     <>
       <section className="relative">
         <img
-          src="/hero.jpg"
-          alt="where to find"
+          src="/hero-2.jpeg"
+          alt="Où me trouver"
           className="h-[280px] w-full object-cover md:h-[340px]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
+        <div className="absolute inset-0 flex bg-white/20 backdrop-blur-[2px] flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
             Localisation
           </h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#FFFFFF] md:text-base">
+          <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
               Accueil
             </Link>
-            <span className="text-[#FFFFFF]">&gt;</span>
+            <span className="text-[#2B2B2B]">&gt;</span>
             <span>Où me trouver?</span>
           </div>
         </div>
