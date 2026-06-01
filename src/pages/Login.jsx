@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { authApi } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import Header from "../components/Header";
 
 export default function Login() {
   const [formData, setFormData] = useState({
