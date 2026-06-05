@@ -1,8 +1,54 @@
 import { Link } from "react-router-dom";
 import CheckoutInput from "../components/CheckoutInput";
 import FeaturesBanner from "../sections/FeaturesBanner";
+import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+  const { cartItems, clearCart } = useContext(CartContext);
+
+  const total = cartItems.reduce((acc, item) => {
+    const numericPrice = parseFloat(
+      item.price.replace("€", "").replace(",", "."),
+    );
+
+    return acc + numericPrice * item.quantity;
+  }, 0);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    phone: "",
+    notes: "",
+    pickupLocation: "",
+    pickupDate: "",
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  const navigate = useNavigate();
+
+  function handleOrder() {
+    console.log(formData);
+    console.log(cartItems);
+
+    clearCart();
+
+    toast.success("Votre commande a bien été enregistrée !");
+
+    navigate("/");
+  }
+
   return (
     <>
       {/* Banner */}
@@ -35,19 +81,38 @@ export default function Checkout() {
                 Détails de facturation
               </h2>
               <div className="grid gap-6 md:grid-cols-2">
-                <CheckoutInput label="Prénom" />
+                <CheckoutInput
+                  label="Prénom"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
 
-                <CheckoutInput label="Nom" />
+                <CheckoutInput
+                  label="Nom"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mt-6">
                 <CheckoutInput
                   label="Nom de l’entreprise (facultatif)"
                   placeholder="Entreprise"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="mt-6">
-                <CheckoutInput label="Téléphone" type="tel" />
+                <CheckoutInput
+                  label="Téléphone"
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mt-6 flex flex-col gap-2">
                 <label className="text-sm font-medium text-[#2B2B2B]">
@@ -56,12 +121,16 @@ export default function Checkout() {
 
                 <textarea
                   placeholder="Notes concernant votre commande..."
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
                   className="min-h-[140px] rounded-[10px] border border-[#D9D9D9] p-4 outline-none resize-none"
                 />
               </div>
             </div>
 
             {/* Right */}
+
             <div className="border border-[#F0F0F0] p-8">
               <div className="flex items-center justify-between border-b border-[#D9D9D9] pb-4">
                 <h3 className="text-xl font-semibold text-[#2B2B2B]">
@@ -72,50 +141,75 @@ export default function Checkout() {
                   Sous-total
                 </h3>
               </div>
-              <div className="flex items-center justify-between py-6">
-                <p className="text-[#9F9F9F]">
-                  Coeur d’Automne
-                  <span className="ml-2 text-black">x 1</span>
-                </p>
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between py-2"
+                >
+                  <span>
+                    {item.title} × {item.quantity}
+                  </span>
 
-                <span className="text-[#2B2B2B]">3.50 €</span>
-              </div>
-              <div className="flex items-center justify-between py-4">
-                <span className="font-medium text-[#2B2B2B]">Sous-total</span>
+                  <span>
+                    {(
+                      parseFloat(
+                        item.price.replace("€", "").replace(",", "."),
+                      ) * item.quantity
+                    ).toFixed(2)}{" "}
+                    €
+                  </span>
+                </div>
+              ))}
+              <div className="mt-6 flex justify-between border-t pt-4">
+                <span className="font-semibold">Total</span>
 
-                <span className="text-[#2B2B2B]">3.50 €</span>
-              </div>
-              <div className="flex items-center justify-between border-b border-[#D9D9D9] py-4">
-                <span className="font-medium text-[#2B2B2B]">Total</span>
-
-                <span className="text-2xl font-bold text-[#B88E7D]">
-                  3.50 €
+                <span className="font-bold text-[#B88E7D]">
+                  {total.toFixed(2)} €
                 </span>
               </div>
+
               <div className="py-6">
                 <h4 className="font-medium text-[#2B2B2B]">Lieu de collecte</h4>
 
-                <p className="mt-2 text-sm leading-6 text-[#9F9F9F]">
-                  Choisissez votre lieu de collecte pour finaliser votre
-                  commande.
-                </p>
+                <select
+                  name="pickupLocation"
+                  value={formData.pickupLocation}
+                  onChange={handleChange}
+                  className="mt-4 h-[52px] w-full rounded-[10px] border border-[#D9D9D9] px-4 outline-none"
+                >
+                  <option value="">Choisissez un lieu</option>
 
-                <select className="mt-4 h-[52px] w-full rounded-[10px] border border-[#D9D9D9] px-4 outline-none">
-                  <option>Marché de Quintaou, 64600 Anglet</option>
+                  <option value="quintaou">
+                    Marché de Quintaou, 64600 Anglet
+                  </option>
+
+                  <option value="biarritz">
+                    Marché des Halles, 64200 Biarritz
+                  </option>
                 </select>
               </div>
               <div className="pb-6">
                 <h4 className="font-medium text-[#2B2B2B]">Jour de collecte</h4>
 
-                <p className="mt-2 text-sm leading-6 text-[#9F9F9F]">
-                  Choisissez le jour de la collecte
-                </p>
+                <select
+                  name="pickupDate"
+                  value={formData.pickupDate}
+                  onChange={handleChange}
+                  className="mt-4 h-[52px] w-full rounded-[10px] border border-[#D9D9D9] px-4 outline-none"
+                >
+                  <option value="">Choisissez une date</option>
 
-                <select className="mt-4 h-[52px] w-full rounded-[10px] border border-[#D9D9D9] px-4 outline-none">
-                  <option>Samedi 24 juin 2026</option>
+                  <option value="2026-06-13">Samedi 13 juin 2026</option>
+
+                  <option value="2026-06-20">Samedi 20 juin 2026</option>
+
+                  <option value="2026-06-27">Samedi 27 juin 2026</option>
                 </select>
               </div>
-              <button className="mt-6 w-full rounded-lg bg-[#B88E7D] px-6 py-4 text-base font-medium text-white transition hover:opacity-90 cursor-pointer">
+              <button
+                onClick={handleOrder}
+                className="mt-6 w-full rounded-lg bg-[#B88E7D] px-6 py-4 text-base font-medium text-white transition hover:opacity-90 cursor-pointer"
+              >
                 Commander
               </button>
             </div>

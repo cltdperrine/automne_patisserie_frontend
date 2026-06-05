@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  SlidersHorizontal,
-  LayoutGrid,
-  Rows3,
-  ChevronDown,
-} from "lucide-react";
+
 import FeaturesBanner from "../sections/FeaturesBanner";
 import ProductCard from "../components/ProductCard";
 import { productsApi } from "../lib/api";
@@ -52,37 +47,6 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Filter bar */}
-      <section className="bg-[#F8F3F1] px-6 py-4 md:px-12">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-          <div className="flex items-center gap-6">
-            <button className="flex cursor-pointer items-center gap-2 text-sm font-medium text-[#2B2B2B] transition hover:text-gray-600">
-              <SlidersHorizontal className="h-4 w-4" />
-              Filtres
-            </button>
-            <div className="flex items-center gap-2 text-[#2B2B2B]">
-              <button className="cursor-pointer transition hover:text-gray-600">
-                <LayoutGrid className="h-4 w-4" />
-              </button>
-              <button className="cursor-pointer transition hover:text-gray-600">
-                <Rows3 className="h-4 w-4" />
-              </button>
-            </div>
-            <span className="hidden text-sm text-[#2B2B2B] md:inline">
-              Affichage de 1–{products.length} sur {products.length} resultats
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-[#2B2B2B]">Tri par</span>
-            <button className="flex min-w-[180px] cursor-pointer items-center justify-between gap-3 bg-white px-4 py-2 text-sm text-[#9F9F9F]">
-              <span>Popularité</span>
-              <ChevronDown className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* Product grid */}
       <section className="bg-white px-6 py-12 md:px-12 md:py-16">
         <div className="mx-auto max-w-7xl">
@@ -112,20 +76,6 @@ export default function Products() {
           )}
 
           {/* Pagination */}
-          <div className="mt-12 flex items-center justify-center gap-3">
-            <button className="h-10 w-10 cursor-pointer bg-[#A86658] text-sm font-medium text-white transition hover:bg-[#8d5046]">
-              1
-            </button>
-            <button className="h-10 w-10 cursor-pointer bg-[#F1E0DA] text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              2
-            </button>
-            <button className="h-10 w-10 cursor-pointer bg-[#F1E0DA] text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              3
-            </button>
-            <button className="h-10 cursor-pointer bg-[#F1E0DA] px-4 text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              Suivant
-            </button>
-          </div>
         </div>
       </section>
 

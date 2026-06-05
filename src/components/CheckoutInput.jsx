@@ -1,4 +1,11 @@
-export default function CheckoutInput({ label, type = "text", placeholder }) {
+export default function CheckoutInput({
+  label,
+  type = "text",
+  placeholder,
+  name,
+  value,
+  onChange,
+}) {
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium text-[#2B2B2B]">{label}</label>
@@ -6,6 +13,9 @@ export default function CheckoutInput({ label, type = "text", placeholder }) {
       <input
         type={type}
         placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
         className="h-[52px] rounded-[10px] border border-[#D9D9D9] px-4 outline-none"
       />
     </div>
