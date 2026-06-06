@@ -23,6 +23,31 @@ export default function AdminAddProduct() {
   async function handleSubmit(event) {
     event.preventDefault();
 
+    if (!formData.name.trim()) {
+      toast.error("Veuillez renseigner un nom de produit");
+      return;
+    }
+
+    if (!formData.price || Number(formData.price) <= 0) {
+      toast.error("Veuillez renseigner un prix valide");
+      return;
+    }
+
+    if (!formData.categoryId) {
+      toast.error("Veuillez choisir une catégorie");
+      return;
+    }
+
+    if (!formData.description.trim()) {
+      toast.error("Veuillez renseigner une description");
+      return;
+    }
+
+    if (!formData.image) {
+      toast.error("Veuillez sélectionner une image");
+      return;
+    }
+
     try {
       const data = new FormData();
 

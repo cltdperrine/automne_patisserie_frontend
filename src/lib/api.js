@@ -58,4 +58,10 @@ export const authApi = {
   },
 };
 
+export const contactApi = {
+  send(data) {
+    return api.post("/contact", data);
+  },
+};
+
 export default api;

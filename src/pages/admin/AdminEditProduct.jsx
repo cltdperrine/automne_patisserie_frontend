@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 export default function AdminEditProduct() {
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
     price: "",
+    categoryId: "",
+    allergens: "",
+    description: "",
     image: null,
   });
 
@@ -20,6 +22,26 @@ export default function AdminEditProduct() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (!formData.name.trim()) {
+      toast.error("Veuillez renseigner un nom de produit");
+      return;
+    }
+
+    if (!formData.price || Number(formData.price) <= 0) {
+      toast.error("Veuillez renseigner un prix valide");
+      return;
+    }
+
+    if (!formData.categoryId) {
+      toast.error("Veuillez choisir une catégorie");
+      return;
+    }
+
+    if (!formData.description.trim()) {
+      toast.error("Veuillez renseigner une description");
+      return;
+    }
 
     try {
       await productsApi.updateProduct(id, formData);
