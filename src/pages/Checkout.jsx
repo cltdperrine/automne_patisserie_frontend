@@ -39,6 +39,36 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   function handleOrder() {
+    if (cartItems.length === 0) {
+      toast.error("Votre panier est vide");
+      return;
+    }
+
+    if (!formData.firstName.trim()) {
+      toast.error("Veuillez renseigner votre prénom");
+      return;
+    }
+
+    if (!formData.lastName.trim()) {
+      toast.error("Veuillez renseigner votre nom");
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(formData.phone)) {
+      toast.error("Veuillez renseigner votre numéro de téléphone");
+      return;
+    }
+
+    if (!formData.pickupLocation.trim()) {
+      toast.error("Veuillez choisir un lieu de collecte");
+      return;
+    }
+
+    if (!formData.pickupDate.trim()) {
+      toast.error("Veuillez choisir une date de collecte");
+      return;
+    }
+
     console.log(formData);
     console.log(cartItems);
 
@@ -60,7 +90,7 @@ export default function Checkout() {
         />
         <div className="absolute inset-0 flex bg-white/20 backdrop-blur-[2px] flex-col items-center justify-center">
           <h1 className="text-4xl font-bold text-[#2B2B2B] md:text-5xl">
-            Valdidation
+            Validation
           </h1>
           <div className="mt-3 flex items-center gap-2 text-sm text-[#2B2B2B] md:text-base">
             <Link to="/" className="transition hover:text-gray-500">
