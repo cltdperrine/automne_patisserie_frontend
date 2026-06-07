@@ -45,7 +45,7 @@ export default function Cart() {
           <div className="grid gap-10 lg:grid-cols-3">
             {/* Left */}
             <div className="lg:col-span-2">
-              <div className="w-full">
+              <div className="hidden md:block w-full">
                 <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] bg-[#F8F3F1] px-6 py-4 text-sm font-medium text-[#2B2B2B]">
                   <span>Produit</span>
                   <span>Prix</span>
