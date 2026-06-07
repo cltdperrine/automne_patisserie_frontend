@@ -1,7 +1,9 @@
 import axios from "axios";
 
+console.log("API URL :", import.meta.env.VITE_API_URL);
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL + "/api",
+  baseURL: "https://automnepatisseriebackend.vercel.app/api",
   withCredentials: true,
 });
 
@@ -55,6 +57,12 @@ export const authApi = {
   signIn: async (data) => {
     const response = await api.post("/auth/sign-in", data);
     return response.data;
+  },
+};
+
+export const contactApi = {
+  send(data) {
+    return api.post("/contact", data);
   },
 };
 

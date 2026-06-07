@@ -6,12 +6,12 @@ import toast from "react-hot-toast";
 
 export default function Register() {
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,26 +22,57 @@ export default function Register() {
       ...prev,
       [name]: value,
     }));
-    setError("");
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Les mots de passe ne correspondent pas");
+    if (!formData.firstName.trim()) {
+      toast.error("Veuillez renseigner votre prénom");
       return;
     }
-    setError("");
+
+    if (!formData.lastName.trim()) {
+      toast.error("Veuillez renseigner votre nom");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      toast.error("Veuillez renseigner votre adresse email");
+      return;
+    }
+
+    if (!formData.password.trim()) {
+      toast.error("Veuillez renseigner un mot de passe");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      toast.error("Le mot de passe doit contenir au moins 6 caractères");
+      return;
+    }
+
+    if (!formData.confirmPassword.trim()) {
+      toast.error("Veuillez confirmer votre mot de passe");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return;
+    }
+
     try {
       await authApi.register({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
         email: formData.email,
         password: formData.password,
       });
       toast.success("Compte créé avec succès !");
       navigate("/auth/login");
-    } catch {
-      toast.error("Une erreur est survenue");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Une erreur est survenue");
     }
   }
 
@@ -64,6 +95,29 @@ export default function Register() {
           onSubmit={handleSubmit}
           className="w-full max-w-lg bg-white border border-gray-100 rounded-xl shadow-sm p-8 flex flex-col gap-4"
         >
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium text-black">Prénom*</label>
+
+            <input
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              type="text"
+              className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium text-black">Nom*</label>
+
+            <input
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              type="text"
+              className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
+            />
+          </div>
           <div className="flex flex-col gap-2">
             <label className="text-base font-medium text-black">
               Votre e-mail*
@@ -105,11 +159,7 @@ export default function Register() {
               className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
             />
           </div>
-          {error ? (
-            <p className="text-red-500 text-sm" role="alert">
-              {error}
-            </p>
-          ) : null}
+
           {/* button pour s'inscrire' */}
           <button
             type="submit"

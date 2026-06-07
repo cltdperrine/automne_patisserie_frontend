@@ -25,6 +25,10 @@ export function CartProvider({ children }) {
     });
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   function increaseQuantity(index) {
     setCartItems((prevItems) =>
       prevItems.map((item, i) =>
@@ -64,6 +68,7 @@ export function CartProvider({ children }) {
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,
+        clearCart,
       }}
     >
       {children}

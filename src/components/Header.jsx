@@ -1,15 +1,18 @@
-import { Menu, User, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, User, ShoppingCart, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 export default function Header() {
+  const navigate = useNavigate();
   const { cartItems } = useContext(CartContext);
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
     0,
   );
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md">
@@ -75,9 +78,21 @@ export default function Header() {
         {/* icons */}
         <div className="flex flex-1 items-center justify-end gap-4 md:gap-6">
           {/* user */}
-          <Link to={"/auth/login"}>
-            <User className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
-          </Link>
+          {user ? (
+            <button
+              onClick={() => {
+                localStorage.removeItem("user");
+                navigate("/auth/login");
+              }}
+              className="cursor-pointer"
+            >
+              <LogOut />
+            </button>
+          ) : (
+            <Link to="/auth/login">
+              <User />
+            </Link>
+          )}
 
           {/* shopping cart */}
           <Link to="/cart" className="relative">

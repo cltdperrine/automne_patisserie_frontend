@@ -9,23 +9,41 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData((state) => ({ ...state, [name]: value }));
-    setError("");
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await authApi.signIn(formData);
+      const response = await authApi.signIn(formData);
+
+      localStorage.setItem("user", JSON.stringify(response.user));
+
       toast.success("Connexion réussie !");
-      navigate("/");
-    } catch {
-      toast.error("Email ou mot de passe incorrect");
+
+      if (!formData.email.trim()) {
+        toast.error("Veuillez renseigner votre adresse email");
+        return;
+      }
+
+      if (!formData.password.trim()) {
+        toast.error("Veuillez renseigner votre mot de passe");
+        return;
+      }
+
+      if (response.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Email ou mot de passe incorrect",
+      );
     }
   }
 
@@ -77,7 +95,6 @@ export default function Login() {
               className="w-full h-[52px] rounded-[10px] border border-[#9f9f9f] px-4 text-base outline-none focus:border-[#b58275] transition-colors"
             />
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
           {/* button pour se connecter */}
           <button
             type="submit"

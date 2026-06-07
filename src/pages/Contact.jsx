@@ -3,6 +3,7 @@ import { MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import FeaturesBanner from "../sections/FeaturesBanner";
 import toast from "react-hot-toast";
+import { contactApi } from "../lib/api";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -21,16 +22,22 @@ export default function Contact() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    toast.success("Message envoyé avec succès!");
+    try {
+      await contactApi.send(formData);
 
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+      toast.success("Message envoyé avec succès!");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Une erreur est survenue");
+    }
   }
-
   return (
     <>
       <section className="relative">

@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
 import { Menu, LogOut } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 
 export default function AdminLayout() {
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user || user.role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
   return (
     <>
       {/* HEADER */}
@@ -61,27 +67,21 @@ export default function AdminLayout() {
 
           {/* icons */}
           <div className="flex flex-1 items-center justify-end gap-4 md:gap-6">
-            {/* user */}
-            <Link to={"/auth/login"}>
-              <LogOut className="h-5 w-5 cursor-pointer stroke-[1.8] transition hover:text-gray-500 md:h-6 md:w-6" />
-            </Link>
+            {/* logout */}
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                localStorage.removeItem("user");
+                navigate("/auth/login");
+              }}
+            >
+              <LogOut />
+            </button>
           </div>
         </div>
       </header>
 
       {/* HERO */}
-      <section className="relative">
-        <img
-          src="/hero.jpg"
-          alt="Panier"
-          className="h-[280px] w-full object-cover md:h-[340px]"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-[#FFFFFF] md:text-5xl">
-            Admin
-          </h1>
-        </div>
-      </section>
 
       {/* OUTLET */}
       <main className="p-8">

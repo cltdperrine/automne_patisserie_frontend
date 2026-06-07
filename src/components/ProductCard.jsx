@@ -5,9 +5,6 @@ import toast from "react-hot-toast";
 
 export default function ProductCard({ id, image, title, subtitle, price }) {
   const { addToCart } = useContext(CartContext);
-  console.log(price, typeof price);
-
-  console.log(id);
 
   return (
     <div className="group flex flex-col">
