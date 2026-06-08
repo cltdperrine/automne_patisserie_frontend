@@ -19,6 +19,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import SingleProduct from "./pages/SingleProduct";
 import { Toaster } from "react-hot-toast";
 import Checkout from "./pages/Checkout";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/add" element={<AdminAddProduct />} />
           <Route path="products/edit/:id" element={<AdminEditProduct />} />
+          <Route path="orders" element={<AdminOrders />} />
         </Route>
 
         <Route path="/auth" element={<AuthLayout />}>

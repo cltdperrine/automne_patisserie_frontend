@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { productsApi } from "../../lib/api";
+import { useEffect, useState } from "react";
+import { productsApi, categoriesApi } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -68,6 +68,21 @@ export default function AdminAddProduct() {
 
   const navigate = useNavigate();
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const data = await categoriesApi.getCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
   return (
     <>
       <h1 className="text-center text-3xl font-bold text-[#2B2B2B]">
@@ -100,7 +115,7 @@ export default function AdminAddProduct() {
               onChange={handleChange}
               className="h-[52px] rounded-lg border border-[#D9D9D9] px-4 outline-none"
             />
-          </div>{" "}
+          </div>
           <div className="flex flex-col gap-2">
             <label className="font-medium text-[#2B2B2B]">Catégorie </label>
 
@@ -112,23 +127,13 @@ export default function AdminAddProduct() {
             >
               <option value="">Choisir une catégorie</option>
 
-              <option value="2e7c26ce-3f8c-4a5f-84a7-27cac91c80b7">
-                Tartes
-              </option>
-
-              <option value="ca3dc5dc-98ac-42b3-be31-2f5d821d8a60">
-                Macarons
-              </option>
-
-              <option value="dd79cebd-385d-497d-b672-c3664ed3200a">
-                Gâteaux
-              </option>
-
-              <option value="bff6393b-9d8d-452d-812e-cddc6ce8660f">
-                Viennoiserie
-              </option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
             </select>
-          </div>{" "}
+          </div>
           <div className="flex flex-col gap-2">
             <label className="font-medium text-[#2B2B2B]">Allergènes </label>
 

@@ -42,7 +42,7 @@ export default function AdminLayout() {
                 </li>
                 <li>
                   <Link
-                    to="/"
+                    to="/admin/orders"
                     className="cursor-pointer transition hover:text-gray-500"
                   >
                     Commandes

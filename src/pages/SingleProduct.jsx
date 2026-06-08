@@ -47,15 +47,17 @@ export default function SingleProduct() {
       <section className="px-6 py-16 md:px-12">
         <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-2">
           {/* IMAGE */}
-          <div>
+          <div className="aspect-square overflow-hidden rounded-2xl bg-[#F8F3F1]">
             <img
               src={
-                product.image_url.startsWith("http")
-                  ? product.image_url
-                  : `${import.meta.env.VITE_API_URL}${product.image_url}`
+                product.image_url
+                  ? product.image_url.startsWith("http")
+                    ? product.image_url
+                    : `${import.meta.env.VITE_API_URL.replace("/api", "")}${product.image_url}`
+                  : "/placeholder.jpg"
               }
               alt={product.name}
-              className="w-full rounded-2xl object-cover"
+              className="h-full w-full rounded-2xl object-cover"
             />
           </div>
 

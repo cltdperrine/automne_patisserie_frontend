@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { ordersApi } from "../lib/api";
 
 export default function Checkout() {
   const { cartItems, clearCart } = useContext(CartContext);
@@ -38,7 +39,7 @@ export default function Checkout() {
 
   const navigate = useNavigate();
 
-  function handleOrder() {
+  async function handleOrder() {
     if (cartItems.length === 0) {
       toast.error("Votre panier est vide");
       return;
@@ -69,14 +70,33 @@ export default function Checkout() {
       return;
     }
 
-    console.log(formData);
-    console.log(cartItems);
+    try {
+      const orderData = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        phone: formData.phone,
+        pickup_location: formData.pickupLocation,
+        pickup_date: formData.pickupDate,
+        notes: formData.notes,
+        status: "pending",
 
-    clearCart();
+        items: cartItems.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+        })),
+      };
 
-    toast.success("Votre commande a bien été enregistrée !");
+      await ordersApi.postOrder(orderData);
 
-    navigate("/");
+      clearCart();
+
+      toast.success("Votre commande a bien été enregistrée !");
+
+      navigate("/");
+    } catch (error) {
+      toast.error("Une erreur a été détectée");
+      console.log(error);
+    }
   }
 
   return (
