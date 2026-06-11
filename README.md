@@ -1,16 +1,126 @@
-# React + Vite
+- Démonstration : [http://automnepatisseriefrontend.vercel.app]
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Automne Pâtisserie - Frontend
 
-Currently, two official plugins are available:
+Frontend de l'application e-commerce Automne Pâtisserie développé avec React et Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Cette application permet aux utilisateurs de découvrir les produits de la pâtisserie, gérer leur compte, leur panier et leurs commandes.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies
 
-## Expanding the ESLint configuration
+- React
+- React Router
+- Tailwind CSS
+- Axios
+- Context API
+- JWT
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Fonctionnalités
+
+### Visiteur
+
+- Consultation des produits
+- Consultation des catégories
+- Consultation des fiches produits
+- Inscription
+- Connexion
+
+### Utilisateur connecté
+
+- Gestion du profil
+- Gestion du panier
+- Passage de commande
+- Consultation de l'historique des commandes
+- Déconnexion
+
+### Contact
+
+- Formulaire de contact
+
+---
+
+## Structure du projet
+
+```bash
+src/
+├── assets/
+├── components/
+├── contexts/
+├── layouts/
+├── pages/
+├── services/
+├── routes/
+└── utils/
+```
+
+---
+
+## Installation
+
+### Cloner le dépôt
+
+```bash
+git clone https://github.com/cltdperrine/automne_patisserie_frontend.git
+```
+
+### Installer les dépendances
+
+```bash
+npm install
+```
+
+### Configurer les variables d'environnement
+
+Créer un fichier `.env` :
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+### Lancer le projet
+
+```bash
+npm run dev
+```
+
+Application disponible sur :
+
+```bash
+http://localhost:5173
+```
+
+---
+
+## Communication avec l'API
+
+Le frontend consomme l'API REST du projet Automne Pâtisserie pour :
+
+- l'authentification
+- la gestion des utilisateurs
+- les produits
+- les catégories
+- le panier
+- les commandes
+- le formulaire de contact
+
+---
+
+## Responsive Design
+
+L'interface a été développée pour s'adapter aux différents supports :
+
+- Mobile
+- Tablette
+- Desktop
+
+---
+
+## Réalisé par
+
+Perrine
+
+Projet réalisé dans le cadre de la formation Développeuse Web et Web Mobile.
