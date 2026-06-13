@@ -56,10 +56,11 @@ export default function Cart() {
               {cartItems.map((item, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center gap-6 border-b border-gray-100 px-6 py-6"
+                  className="border-b border-gray-100 px-4 py-6 md:px-6"
                 >
-                  <div className="flex items-center gap-6">
-                    <div className="h-24 w-24 overflow-hidden rounded-xl bg-[#F8F3F1] flex-shrink-0">
+                  {/* Mobile */}
+                  <div className="flex items-center gap-4 md:hidden">
+                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-[#F8F3F1]">
                       <img
                         src={
                           item.image?.startsWith("http")
@@ -70,45 +71,83 @@ export default function Cart() {
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    <p className="max-w-[180px] font-medium text-[#2B2B2B] leading-relaxed">
-                      {item.title}
-                    </p>
+                    <div className="flex flex-1 flex-col gap-3">
+                      <p className="font-medium text-[#2B2B2B]">{item.title}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => decreaseQuantity(index)}
+                            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100"
+                          >
+                            -
+                          </button>
+                          <span className="min-w-[20px] text-center">{item.quantity}</span>
+                          <button
+                            onClick={() => increaseQuantity(index)}
+                            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => removeFromCart(index)}
+                          className="cursor-pointer text-[#B88E7D] transition hover:opacity-70"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                      <span className="text-sm font-medium text-[#B88E7D]">
+                        {(getNumericPrice(item.price) * item.quantity).toFixed(2)} €
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span>{item.price}</span>
-
-                    <button
-                      onClick={() => removeFromCart(index)}
-                      className="cursor-pointer text-[#B88E7D] transition hover:opacity-70"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => decreaseQuantity(index)}
-                      className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100 cursor-pointer"
-                    >
-                      -
-                    </button>
-
-                    <span className="min-w-[20px] text-center">
-                      {item.quantity}
+                  {/* Desktop */}
+                  <div className="hidden md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr] md:items-center md:gap-6">
+                    <div className="flex items-center gap-6">
+                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-[#F8F3F1]">
+                        <img
+                          src={
+                            item.image?.startsWith("http")
+                              ? item.image
+                              : `${import.meta.env.VITE_API_URL}${item.image}`
+                          }
+                          alt={item.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <p className="max-w-[180px] font-medium leading-relaxed text-[#2B2B2B]">
+                        {item.title}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>{item.price}</span>
+                      <button
+                        onClick={() => removeFromCart(index)}
+                        className="cursor-pointer text-[#B88E7D] transition hover:opacity-70"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => decreaseQuantity(index)}
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100"
+                      >
+                        -
+                      </button>
+                      <span className="min-w-[20px] text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => increaseQuantity(index)}
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span>
+                      {(getNumericPrice(item.price) * item.quantity).toFixed(2)} €
                     </span>
-
-                    <button
-                      onClick={() => increaseQuantity(index)}
-                      className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 transition hover:bg-gray-100 cursor-pointer"
-                    >
-                      +
-                    </button>
                   </div>
-
-                  <span>
-                    {(getNumericPrice(item.price) * item.quantity).toFixed(2)} €
-                  </span>
                 </div>
               ))}
             </div>
