@@ -140,10 +140,6 @@ export default function WhereToFind() {
                     <span>Sur rendez-vous</span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-[#6B6B6B]">
-                    <Clock3 className="h-5 w-5 text-[#B88E7D]" />
-                    <span>Commande via Instagram</span>
-                  </div>
                 </div>
 
                 <Link

@@ -19,23 +19,43 @@ export default function AdminProducts() {
       });
   }, []);
 
-  async function handleDelete(productId) {
-    const confirmed = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer ce produit?",
+  function handleDelete(productId) {
+    toast(
+      (t) => (
+        <div className="flex flex-col gap-3">
+          <p className="text-sm font-medium text-[#2B2B2B]">
+            Supprimer ce produit ?
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  await productsApi.deleteProduct(productId);
+                  setProducts((prev) =>
+                    prev.filter((product) => product.id !== productId),
+                  );
+                  toast.success("Produit supprimé avec succès");
+                } catch (error) {
+                  console.error(error);
+                  toast.error("Erreur lors de la suppression");
+                }
+              }}
+              className="rounded bg-[#B88E7D] px-3 py-1 text-sm text-white cursor-pointer"
+            >
+              Confirmer
+            </button>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="rounded border border-gray-200 px-3 py-1 text-sm text-[#2B2B2B] cursor-pointer"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: Infinity },
     );
-
-    if (!confirmed) {
-      return;
-    }
-
-    try {
-      await productsApi.deleteProduct(productId);
-
-      setProducts(products.filter((product) => product.id !== productId));
-      toast.success("Produit supprimé avec succès");
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   return (

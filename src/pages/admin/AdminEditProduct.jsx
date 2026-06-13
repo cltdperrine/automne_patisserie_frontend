@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { productsApi } from "../../lib/api";
+import { productsApi, categoriesApi } from "../../lib/api";
 import toast from "react-hot-toast";
 
 export default function AdminEditProduct() {
@@ -44,7 +44,8 @@ export default function AdminEditProduct() {
     }
 
     try {
-      await productsApi.updateProduct(id, formData);
+      const { image, ...productData } = formData;
+      await productsApi.updateProduct(id, productData);
       toast.success("Produit modifié avec succès");
       navigate("/admin/products");
     } catch (error) {
@@ -53,6 +54,7 @@ export default function AdminEditProduct() {
   }
 
   const { id } = useParams();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     productsApi
@@ -70,6 +72,11 @@ export default function AdminEditProduct() {
       .catch((error) => {
         console.error(error);
       });
+
+    categoriesApi
+      .getCategories()
+      .then((data) => setCategories(data))
+      .catch((error) => console.error(error));
   }, [id]);
 
   const navigate = useNavigate();
@@ -118,21 +125,11 @@ export default function AdminEditProduct() {
             >
               <option value="">Choisir une catégorie</option>
 
-              <option value="2e7c26ce-3f8c-4a5f-84a7-27cac91c80b7">
-                Tartes
-              </option>
-
-              <option value="ca3dc5dc-98ac-42b3-be31-2f5d821d8a60">
-                Macarons
-              </option>
-
-              <option value="dd79cebd-385d-497d-b672-c3664ed3200a">
-                Gâteaux
-              </option>
-
-              <option value="bff6393b-9d8d-452d-812e-cddc6ce8660f">
-                Viennoiserie
-              </option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>{" "}
           <div className="flex flex-col gap-2">

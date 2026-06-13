@@ -83,21 +83,6 @@ export default function Category() {
             </div>
           )}
 
-          {/* Pagination */}
-          <div className="mt-12 flex items-center justify-center gap-3">
-            <button className="h-10 w-10 cursor-pointer bg-[#A86658] text-sm font-medium text-white transition hover:bg-[#8d5046]">
-              1
-            </button>
-            <button className="h-10 w-10 cursor-pointer bg-[#F1E0DA] text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              2
-            </button>
-            <button className="h-10 w-10 cursor-pointer bg-[#F1E0DA] text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              3
-            </button>
-            <button className="h-10 cursor-pointer bg-[#F1E0DA] px-4 text-sm font-medium text-[#2B2B2B] transition hover:bg-[#e8d2cb]">
-              Suivant
-            </button>
-          </div>
         </div>
       </section>
 
