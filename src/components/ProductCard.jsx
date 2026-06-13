@@ -7,14 +7,6 @@ import { UPLOADS_URL } from "../lib/api";
 export default function ProductCard({ id, image, title, subtitle, price }) {
   const { addToCart } = useContext(CartContext);
 
-  console.log("IMAGE:", image);
-  console.log(
-    "FINAL URL:",
-    image?.startsWith("http")
-      ? image
-      : `${import.meta.env.VITE_API_URL.replace("/api", "")}${image}`,
-  );
-
   return (
     <div className="group flex flex-col">
       {/* IMAGE */}

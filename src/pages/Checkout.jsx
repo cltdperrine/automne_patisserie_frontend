@@ -95,7 +95,7 @@ export default function Checkout() {
       navigate("/");
     } catch (error) {
       toast.error("Une erreur a été détectée");
-      console.log(error);
+      console.error(error);
     }
   }
 

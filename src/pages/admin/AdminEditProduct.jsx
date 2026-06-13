@@ -49,7 +49,7 @@ export default function AdminEditProduct() {
       toast.success("Produit modifié avec succès");
       navigate("/admin/products");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
