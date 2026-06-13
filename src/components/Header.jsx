@@ -6,7 +6,7 @@ import { authApi } from "../lib/api";
 
 export default function Header() {
   const navigate = useNavigate();
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, clearCart } = useContext(CartContext);
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -89,6 +89,7 @@ export default function Header() {
               onClick={async () => {
                 await authApi.signOut();
                 localStorage.removeItem("user");
+                clearCart();
                 navigate("/auth/login");
               }}
               className="cursor-pointer"
