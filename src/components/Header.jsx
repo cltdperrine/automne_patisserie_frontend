@@ -2,6 +2,7 @@ import { Menu, User, ShoppingCart, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
+import { authApi } from "../lib/api";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -85,7 +86,8 @@ export default function Header() {
           {/* user */}
           {user ? (
             <button
-              onClick={() => {
+              onClick={async () => {
+                await authApi.signOut();
                 localStorage.removeItem("user");
                 navigate("/auth/login");
               }}

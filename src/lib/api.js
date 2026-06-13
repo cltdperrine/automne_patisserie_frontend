@@ -67,6 +67,10 @@ export const authApi = {
     const response = await api.post("/auth/sign-in", data);
     return response.data;
   },
+  signOut: async () => {
+    const response = await api.post("/auth/sign-out");
+    return response.data;
+  },
 };
 
 export const contactApi = {
