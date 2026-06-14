@@ -249,11 +249,11 @@ export default function Checkout() {
                 >
                   <option value="">Choisissez une date</option>
 
-                  <option value="2026-06-13">Samedi 13 juin 2026</option>
-
                   <option value="2026-06-20">Samedi 20 juin 2026</option>
 
                   <option value="2026-06-27">Samedi 27 juin 2026</option>
+
+                  <option value="2026-07-04">Samedi 4 juillet 2026</option>
                 </select>
               </div>
               <button

@@ -18,22 +18,23 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (!formData.email.trim()) {
+      toast.error("Veuillez renseigner votre adresse email");
+      return;
+    }
+
+    if (!formData.password.trim()) {
+      toast.error("Veuillez renseigner votre mot de passe");
+      return;
+    }
+
     try {
       const response = await authApi.signIn(formData);
 
       localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success("Connexion réussie !");
-
-      if (!formData.email.trim()) {
-        toast.error("Veuillez renseigner votre adresse email");
-        return;
-      }
-
-      if (!formData.password.trim()) {
-        toast.error("Veuillez renseigner votre mot de passe");
-        return;
-      }
 
       if (response.user.role === "admin") {
         navigate("/admin");
